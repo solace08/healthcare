@@ -1,0 +1,17 @@
+
+
+
+ .heading-title{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 48px;
+            color: aliceblue;
+            width: 600px;
+            text-align: center;
+            
+        }
+        .heading-title i {
+            font-weight: 400;
+        }
+        .hero-title, .hero-subtitle {
+            height: 350px;
+        }
