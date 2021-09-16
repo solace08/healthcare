@@ -29,11 +29,11 @@ public class SpecializationServiceImpl implements ISpecializationService {
 
 	@Override
 	public Specialization getOneSpecialization(Long id) {
-	Optional<Specialization> opt=	repo.findById(id);
-	Specialization spec=null;
-	if(opt.isPresent()) {
-		spec=opt.get();
-	}
+		Optional<Specialization> opt=	repo.findById(id);
+		Specialization spec=null;
+		if(opt.isPresent()) {
+			spec=opt.get();
+		}
 		return spec;
 	}
 
@@ -46,9 +46,21 @@ public class SpecializationServiceImpl implements ISpecializationService {
 
 	@Override
 	public void deleteSpecialization(Long id) {
-	
+
 		repo.deleteById(id); //deletes one specialization having matching id
 
 	}
 
+	//	Check specCode for Asynchronous validation
+	@Override
+	public boolean isSpecCodeExist(String specCode) {
+		return repo.checkSpecCode(specCode)>0;
+	}
+	
+	//	Check specName for Asynchronous validation
+	@Override
+	public boolean isSpecNameExist(String specName) {
+		return repo.checkSpecName(specName)>0;
+	
+	}
 }

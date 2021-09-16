@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.nit.healthcare.entity.Specialization;
@@ -71,6 +72,22 @@ public class SpecializationController {
 	public String showSpecEdit(@RequestParam Long id, Model map) {
 		map.addAttribute("specialization", service.getOneSpecialization(id));
 		return "SpecializationEdit";
+	}
+	
+	// asynchronous response controller method
+	@GetMapping("/check-spec-code")
+	
+	public @ResponseBody String ajaxSpecCode(@RequestParam String specCode) {
+		String message="";
+		if(service.isSpecCodeExist(specCode)) return message+"**Code Already Exist";
+		return message;
+	}
+	
+	@GetMapping("/check-spec-name")
+	public @ResponseBody String ajaxSpecName(@RequestParam String specName) {
+		String message="";
+		if(service.isSpecNameExist(specName)) return message+"**Name Already Exist";
+		return message;
 	}
 	
 }	

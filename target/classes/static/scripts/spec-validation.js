@@ -29,9 +29,23 @@ $(document).ready(function(){
         specCodeError=true;
     }
       else {
-          specMsg.hide();
-          specCodeError=false;
-      }
+	      $.ajax({
+		  url: "check-spec-code",
+		  data: {
+			specCode:specVal
+		 },
+		  success: function(response){
+			if(!response==""){
+				specMsg.show();
+                specMsg.html(response)
+                specMsg.css("color","orangered");
+			}
+			else {
+				  specMsg.hide();
+                  specCodeError=false;
+			}}
+	      })
+        }
 
         return specCodeError;
     }
@@ -50,8 +64,25 @@ $(document).ready(function(){
             specNameError=true;
         }
         else {
-            $("#specNameError").hide();
-            specNameError=false;
+	         $.ajax({
+		     url: "check-spec-name",
+		     data: {
+			specName: $("#specName").val()
+		},
+		success: function(response){
+			if(!response==""){
+			$("#specNameError").show();
+            $("#specNameError").html(response)
+            $("#specNameError").css("color", "orangered");
+            
+			} 
+			else {
+			   $("#specNameError").hide();
+               specNameError=false;
+			}
+		}
+	})
+           
         }
         return specNameError;
     }
