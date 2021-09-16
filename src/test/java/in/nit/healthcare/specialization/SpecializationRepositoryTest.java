@@ -13,7 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import in.nit.healthcare.entity.Specialization;
-import in.nit.healthcare.entity.SpecializationRepository;
+import in.nit.healthcare.repository.SpecializationRepository;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)

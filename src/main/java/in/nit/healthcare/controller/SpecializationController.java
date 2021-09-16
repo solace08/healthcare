@@ -57,11 +57,20 @@ public class SpecializationController {
 	
 	//update specialization
 	
+	@PostMapping("/update")
 	public String updateSpecialization(@ModelAttribute Specialization specialization, RedirectAttributes attribute) {
 		//use service
 		service.updateSpecialization(specialization);
 		attribute.addAttribute("message", "Successfully Updated");
 		return "redirect:all";
+	}
+	
+	//show edit specialization page;
+	
+	@GetMapping("/edit")
+	public String showSpecEdit(@RequestParam Long id, Model map) {
+		map.addAttribute("specialization", service.getOneSpecialization(id));
+		return "SpecializationEdit";
 	}
 	
 }	

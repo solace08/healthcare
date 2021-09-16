@@ -91,7 +91,7 @@
                                     <td class="note-trim" th:text="${spl.specNote}"></td>
                                     <td>
                                         <a href="#" class="btn btn-success btn-sm">VIEW</a>
-                                        <a href="#" class="btn btn-warning btn-sm">EDIT</a>
+                                        <a th:href="@{/spec/edit(id=${spl.id})}" class="btn btn-warning btn-sm">EDIT</a>
                                         <a th:href="@{/spec/delete(id=${spl.id})}" class="btn btn-danger btn-sm">DELETE</a>
                                     </td>
 

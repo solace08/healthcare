@@ -13,6 +13,7 @@ $(document).ready(function(){
 
     // 3. validate function
     function specCode_validate() {
+	console.log("validated")
         let specVal=$("#specCode").val().toUpperCase();
         $("#specCode").val(specVal);
         let specMsg= $("#specCodeError");
@@ -36,39 +37,41 @@ $(document).ready(function(){
     }
 
     function specName_validate(){
+	console.log(specCodeError)
         let exp= /^[A-Za-z\s]{6,40}$/
         if($("#specName").val() ==''){
             $("#specNameError").show();
             $("#specNameError").html("<p class='text-danger'>**<b>Name</b> cannot be empty..</p>")
-            specCodeError=true;
+            specNameError=true;
         }
         else if(! exp.test($("#specName").val())){
             $("#specNameError").show();
             $("#specNameError").html("<p class='text-danger'>**<b>Name</b> [A-Za-z/s] are allowed with max 40 characters..</p>")
-            specCodeError=true;
+            specNameError=true;
         }
         else {
             $("#specNameError").hide();
-            specCodeError=false;
+            specNameError=false;
         }
         return specNameError;
     }
 
     function specNote_validate(){
+	    console.log("validated")
         let exp = /^[A-Za-z0-9\s\,\'\.]{20,250}$/
         if($("#specNote").val() ==''){
             $("#specNoteError").show();
             $("#specNoteError").html("<p class='text-danger'>**<b>Note</b> cannot be empty..</p>")
-            specCodeError=true;
+            specNoteError=true;
         }
         else if(! exp.test($("#specNote").val())){
             $("#specNoteError").show();
             $("#specNoteError").html("<p class='text-danger'>**<b>Note</b> Maximum allowed characters are 250..Check terms for allowed characters</p>")
-            specCodeError=true;
+            specNoteError=true;
         }
         else {
             $("#specNoteError").hide();
-            specCodeError=false;
+            specNoteError=false;
         }
         return specNoteError;
     }
@@ -94,11 +97,11 @@ $(document).ready(function(){
 	  specCode_validate();
 	  specName_validate();
 	  specNote_validate();
-	  
+	  console.log(specCodeError+" "+ specNameError+" "+specNoteError)
 	  if(specCodeError) return false;
 	  else if(specNameError) return false;
 	  else if(specNoteError) return false;
-        //console.log(specCodeError+" "+ specNameError+" "+specNoteError)
+        
 	  else
 	   return true;
    })
