@@ -1,12 +1,12 @@
 package in.nit.healthcare.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import in.nit.healthcare.entity.Specialization;
+import in.nit.healthcare.exceptions.SpecializationNotFoundException;
 import in.nit.healthcare.repository.SpecializationRepository;
 import in.nit.healthcare.service.ISpecializationService;
 
@@ -29,12 +29,12 @@ public class SpecializationServiceImpl implements ISpecializationService {
 
 	@Override
 	public Specialization getOneSpecialization(Long id) {
-		Optional<Specialization> opt=	repo.findById(id);
-		Specialization spec=null;
-		if(opt.isPresent()) {
-			spec=opt.get();
-		}
-		return spec;
+		/*
+		 * Optional<Specialization> opt=repo.findById(id); Specialization spec=null;
+		 * if(opt.isPresent()) { spec=opt.get(); } return spec;
+		 */
+		
+	return	repo.findById(id).orElseThrow(()->new SpecializationNotFoundException("Spec with id: "+id+" not found"));
 	}
 
 	@Override
@@ -45,9 +45,9 @@ public class SpecializationServiceImpl implements ISpecializationService {
 	}
 
 	@Override
-	public void deleteSpecialization(Long id) {
+	public void deleteSpecialization(Specialization specialization) {
 
-		repo.deleteById(id); //deletes one specialization having matching id
+		repo.deleteById(specialization.getId()); //deletes one specialization having matching id
 
 	}
 

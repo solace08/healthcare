@@ -10,7 +10,7 @@ public interface ISpecializationService {
 	public List<Specialization> getAllSpecialization();
 	public Specialization getOneSpecialization(Long id);
 	public void updateSpecialization(Specialization spec);
-	public void deleteSpecialization(Long id);
+	public void deleteSpecialization(Specialization specialization);
 	public boolean isSpecCodeExist(String specCode);
 	public boolean isSpecNameExist(String specName);
 }

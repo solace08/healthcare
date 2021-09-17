@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.nit.healthcare.entity.Specialization;
+import in.nit.healthcare.exceptions.SpecializationNotFoundException;
 import in.nit.healthcare.service.ISpecializationService;
 
 @Controller
@@ -22,42 +23,46 @@ public class SpecializationController {
 
 	@Autowired
 	private ISpecializationService service;
-	
+
 	@GetMapping("/register")
 	public String displaySpecRegister() {
 		return "SpecializationRegister";
 	}
-	
+
 	@PostMapping("/create-spec")
 	public String saveSpecialization(@ModelAttribute Specialization specialization,
-			                                         Model map) {
+			Model map) {
 		Long id=service.saveSpecialization(specialization);
 		String message="Specialization created with id: "+id+" Successfully";
 		map.addAttribute("message", message);
 		return "SpecializationRegister";
 	}
-	
+
 	//display all specialization
 	@GetMapping("/all")
 	public String displayAllSpecialization(@RequestParam(value="message", required=false) String message, Model map) {
 		List<Specialization> splList=service.getAllSpecialization();
 		map.addAttribute("splList", splList);
 		map.addAttribute("message", message);
-		
+
 		return "SpecializationAll";
 	}
-	
+
 	//delete specialization
 	@GetMapping("/delete")
 	public String deleteSpecialization(@RequestParam Long id, RedirectAttributes attributes) {
-		service.deleteSpecialization(id);
-		attributes.addAttribute("message", "Successfully Deleted");
+		try {
+			service.deleteSpecialization(service.getOneSpecialization(id));
+			attributes.addAttribute("message", "Successfully Deleted");
+		} catch (SpecializationNotFoundException e) {
+			attributes.addAttribute("message", e.getMessage()); 
+		}
 		return "redirect:all";
-		
+
 	}
-	
+
 	//update specialization
-	
+
 	@PostMapping("/update")
 	public String updateSpecialization(@ModelAttribute Specialization specialization, RedirectAttributes attribute) {
 		//use service
@@ -65,30 +70,41 @@ public class SpecializationController {
 		attribute.addAttribute("message", "Successfully Updated");
 		return "redirect:all";
 	}
-	
+
 	//show edit specialization page;
-	
+
 	@GetMapping("/edit")
-	public String showSpecEdit(@RequestParam Long id, Model map) {
-		map.addAttribute("specialization", service.getOneSpecialization(id));
-		return "SpecializationEdit";
+	public String showSpecEdit(@RequestParam Long id, Model map, RedirectAttributes attribute) {
+		String page="";
+		//map.addAttribute("specialization", service.getOneSpecialization(id));
+		try {
+			page="SpecializationEdit";
+			map.addAttribute("specialization", service.getOneSpecialization(id));
+			return page;
+		} catch (SpecializationNotFoundException e) {
+			//page="redirect:all";
+			attribute.addAttribute("message", e.getMessage());
+			return "redirect:all";
+
+		}
+
 	}
-	
+
 	// asynchronous response controller method
 	@GetMapping("/check-spec-code")
-	
+
 	public @ResponseBody String ajaxSpecCode(@RequestParam String specCode) {
 		String message="";
 		if(service.isSpecCodeExist(specCode)) return message+"**Code Already Exist";
 		return message;
 	}
-	
+
 	@GetMapping("/check-spec-name")
 	public @ResponseBody String ajaxSpecName(@RequestParam String specName) {
 		String message="";
 		if(service.isSpecNameExist(specName)) return message+"**Name Already Exist";
 		return message;
 	}
-	
+
 }	
 
