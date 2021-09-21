@@ -13,7 +13,7 @@ $(document).ready(function(){
 
     // 3. validate function
     function specCode_validate() {
-	console.log("validated")
+	//console.log("validated")
         let specVal=$("#specCode").val().toUpperCase();
         $("#specCode").val(specVal);
         let specMsg= $("#specCodeError");
@@ -29,9 +29,12 @@ $(document).ready(function(){
         specCodeError=true;
     }
       else {
+	      let id=0;
+	      if($("#id").val()!=undefined) id=$("#id").val();
 	      $.ajax({
 		  url: "check-spec-code",
 		  data: {
+            id: id,
 			specCode:specVal
 		 },
 		  success: function(response){
@@ -51,7 +54,6 @@ $(document).ready(function(){
     }
 
     function specName_validate(){
-	console.log(specCodeError)
         let exp= /^[A-Za-z\s]{6,40}$/
         if($("#specName").val() ==''){
             $("#specNameError").show();
@@ -64,10 +66,13 @@ $(document).ready(function(){
             specNameError=true;
         }
         else {
+	         let id=0;
+	         if($("#id").val()!=undefined) id=$("#id").val();
 	         $.ajax({
 		     url: "check-spec-name",
 		     data: {
-			specName: $("#specName").val()
+			 specName: $("#specName").val(),
+			 id: id
 		},
 		success: function(response){
 			if(!response==""){

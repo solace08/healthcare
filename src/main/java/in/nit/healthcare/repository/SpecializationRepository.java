@@ -12,5 +12,9 @@ public interface SpecializationRepository extends JpaRepository<Specialization, 
 	
 	@Query("SELECT COUNT(specName) FROM Specialization WHERE specName=:specName")
 	public Integer checkSpecName(String specName);
+	@Query("SELECT COUNT(specCode) FROM Specialization WHERE specCode=:specCode AND id!=:specEditId")
+	public Integer checkSpecCodeEdit(String specCode, Long specEditId);
+	@Query("SELECT COUNT(specName) FROM Specialization WHERE specName=:specName AND id!=:specEditId")
+	public Integer checkSpecNameEdit(String specName, Long specEditId);
 
 }

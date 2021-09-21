@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.nit.healthcare.entity.Specialization;
 import in.nit.healthcare.exceptions.SpecializationNotFoundException;
 import in.nit.healthcare.service.ISpecializationService;
+import in.nit.healthcare.view.SpecializationExcelView;
 
 @Controller
 @RequestMapping("/spec")
@@ -93,17 +96,31 @@ public class SpecializationController {
 	// asynchronous response controller method
 	@GetMapping("/check-spec-code")
 
-	public @ResponseBody String ajaxSpecCode(@RequestParam String specCode) {
+	public @ResponseBody String ajaxSpecCode(@RequestParam String specCode, @RequestParam Long id) {
 		String message="";
-		if(service.isSpecCodeExist(specCode)) return message+"**Code Already Exist";
+		if(id!=0 && service.isSpecCodeExistEdit(specCode, id)) return message+"**Code Already Exist";
+			
+		else if(id==0 && service.isSpecCodeExist(specCode)) return message+"**Code Already Exist";
+
+		
 		return message;
 	}
 
 	@GetMapping("/check-spec-name")
-	public @ResponseBody String ajaxSpecName(@RequestParam String specName) {
+	public @ResponseBody String ajaxSpecName(@RequestParam String specName, @RequestParam Long id) {
 		String message="";
-		if(service.isSpecNameExist(specName)) return message+"**Name Already Exist";
+		if(id==0 && service.isSpecNameExist(specName)) return message+"**Name Already Exist";
+	
+		else if(id!=0 && service.isSpecNameExistEdit(specName,id)) return message+"**Name Already Exist";
 		return message;
+	}
+
+	//	Specialization excel export
+	@GetMapping("/excel")
+	public ModelAndView excelExport(ModelAndView mav) {
+		mav.addObject("splList", service.getAllSpecialization());
+		mav.setView((View) new SpecializationExcelView());
+		return mav;
 	}
 
 }	
