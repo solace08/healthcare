@@ -42,15 +42,16 @@
     <section id="services">
         <div class="container">
             <div class="d-flex justify-content-between">
-                <!-- <a href="doctor/all" class="btn btn-success m-3">All Doctors</a>
-                <a href="doctor/add" class="btn btn-success m-3">Add Doctors</a>
-                <a href="patient/all" class="btn btn-success m-3">All Patients</a>
+                <a th:href="@{doc/all}" class="btn btn-success m-3">All Doctors</a>
+                <a th:href="@{doc/register}" class="btn btn-success m-3">Add Doctors</a>
+                <!-- <a href="patient/all" class="btn btn-success m-3">All Patients</a>
                 <a href="patient/add" class="btn btn-success m-3">Add Patients</a> -->
                 <a th:href="@{spec/all}" class="btn btn-success m-3">All Specialization</a>
                 <a th:href="@{spec/register}" class="btn btn-success m-3">Add Specialization</a>
-              
+                
             </div>
         </div>
     </section>
+    <!-- <script src="../static/scripts/test.js"></script> -->
 </body>
 </html>

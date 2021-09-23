@@ -1,6 +1,7 @@
 package in.nit.healthcare.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import in.nit.healthcare.entity.Specialization;
 import in.nit.healthcare.exceptions.SpecializationNotFoundException;
 import in.nit.healthcare.repository.SpecializationRepository;
 import in.nit.healthcare.service.ISpecializationService;
+import in.nit.healthcare.utility.convertListToMapUtil;
 
 @Service
 public class SpecializationServiceImpl implements ISpecializationService {
@@ -35,6 +37,13 @@ public class SpecializationServiceImpl implements ISpecializationService {
 		 */
 		
 	return	repo.findById(id).orElseThrow(()->new SpecializationNotFoundException("Spec with id: "+id+" not found"));
+	}
+	
+	
+	@Override
+	public Map<Long,String> getSpecNameAndCode() {
+		return convertListToMapUtil.convert(repo.getSpecIdAndName());
+
 	}
 
 	@Override

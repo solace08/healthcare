@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link th:href="@{/css/style.css}" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm bg-info justify-content-between">
+            <a href="/" class="navbar-brand nav-link text-white">LOGO</a>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="/" class="nav-link text-white"><span class="bi"></span>Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-white"><span class="bi"></span>About Us</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-white"><span class="bi"></span>Services</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-white"><span class="bi"></span>Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="hero" style="height: 350px;" class="bg-primary">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-8">
+                    <div class="hero-title d-flex align-items-center">
+                        <h2 class="heading-title"><i>Welcome to</i> <strong>Healthcare Crud App</strong></h2>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="hero-subtitle d-flex align-items-center">
+                        <p class="text-white">First hand solutions for your all<strong> Application Development</strong>
+                            requirements...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="add-doctor">
+        <div class="container">
+            <div class="form w-75 mx-auto my-5">
+
+                <div class="card">
+                    <div class="card-header bg-info">
+                        <h3 class="card-title text-white text-center">Doctor Edit Page</h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/doc/update}" method="post" id="doc-form" th:object="${doctor}">
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-2">
+                                    <label for="id" class="col-form-label">ID:</label>
+                                </div>
+                                <div class="col-5">
+                                    <input readonly th:field="*{id}" type="text" class="form-control"
+                                        placeholder="Your Code..">
+                                </div>
+                                <div class="col-5">
+                                    <span class="form-text" id="idError"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-2">
+                                    <label for="docName" class="col-form-label">Name:</label>
+                                </div>
+                                <div class="col-5">
+                                    <input th:field="*{docName}" type="text" class="form-control"
+                                        placeholder="Your Name..">
+                                </div>
+                                <div class="col-5">
+                                    <span class="form-text" id="docNameError"></span>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-2">
+                                    <label for="docEmail" class="col-form-label">Email:</label>
+                                </div>
+                                <div class="col-5">
+                                    <input th:field="*{docEmail}" type="text" class="form-control"
+                                        placeholder="Your Name..">
+                                </div>
+                                <div class="col-5">
+                                    <span class="form-text" id="docEmailError"></span>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-2">
+                                    <label for="docAddr" class="col-form-label">Address:</label>
+                                </div>
+                                <div class="col-5">
+                                    <textarea th:field="*{docAddr}" type="text" class="form-control"
+                                        placeholder="Place Your Note Here.."></textarea>
+                                </div>
+                                <div class="col-5">
+                                    <span class="form-text" id="docAddrError"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-2">
+                                    <label for="docNumber" class="col-form-label">Number:</label>
+                                </div>
+                                <div class="col-5">
+                                    <input th:field="*{docNumber}" type="number" class="form-control"
+                                        placeholder="Your Name..">
+                                </div>
+                                <div class="col-5">
+                                    <span class="form-text" id="docNumberError"></span>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-2">
+                                    <label for="docGender" class="col-form-label">Gender:</label>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-check-inline">
+                                        <input value="female" id="docGender1" name="docGender" type="radio" class="form-check-input"
+                                        placeholder="Your Name..">
+                                        <label for="docGender1" class="form-label">Female</label>
+
+                                    <input value="male" th:field="*{docGender}" type="radio" class="form-check-input"
+                                        placeholder="Your Name..">
+                                        <label for="docGender1" class="form-label">Male</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <span class="form-text" id="docGenderError"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-2">
+                                    <label for="docNote" class="col-form-label">Note:</label>
+                                </div>
+                                <div class="col-5">
+                                    <textarea th:field="*{docNote}" type="text" class="form-control"
+                                        placeholder="Place Your Note Here.."></textarea>
+                                </div>
+                                <div class="col-5">
+                                    <span class="form-text" id="docNoteError"></span>
+                                </div>
+                            </div>
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-2">
+                                    <label for="docImg" class="col-form-label">Note:</label>
+                                </div>
+                                <div class="col-5">
+                                    <input id="docImg" name="docImg" type="file" class="form-control"
+                                        ></input>
+                                </div>
+                                <div class="col-5">
+                                    <span class="form-text" id="docImgError"></span>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-8 text-center">
+                                    <input type="submit" class="btn btn-info text-white w-25" value="Update">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div th:if="${message!=null}" class="card-footer bg-success d-flex align-items-center justify-content-between">
+                        <p th:text="${message}" class="card-footer text-white"></p>
+                        <a href="/" class="btn btn-danger">Back to Home</a>
+                     </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <script th:src="@{/scripts/doc-validation.js}"></script>
+</body>
+
+</html>

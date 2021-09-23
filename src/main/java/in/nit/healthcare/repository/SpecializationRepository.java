@@ -1,5 +1,7 @@
 package in.nit.healthcare.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,5 +18,7 @@ public interface SpecializationRepository extends JpaRepository<Specialization, 
 	public Integer checkSpecCodeEdit(String specCode, Long specEditId);
 	@Query("SELECT COUNT(specName) FROM Specialization WHERE specName=:specName AND id!=:specEditId")
 	public Integer checkSpecNameEdit(String specName, Long specEditId);
+	@Query("SELECT id,specName FROM Specialization")
+	public List<Object[]> getSpecIdAndName();
 
 }
